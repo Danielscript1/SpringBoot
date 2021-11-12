@@ -2,8 +2,10 @@ package com.testeweb.course.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -41,19 +43,21 @@ public class Category implements Serializable {
 	private String name;
 	
 	//associacao
+	@JsonIgnore
 	@ManyToMany
 	@JoinColumn(name="product_id")
-	private List<Product> products =  new ArrayList<>();
+	private Set<Product> products =  new HashSet<>();
+	//criando uma lista do tipo set que não aceitar repeticoes ->product "associação muito pra muitos"
 	//constructor
 
 	public Category() {
 		
 	}
-	public Category(Long id, String name, List<Product> products) {
+	public Category(Long id, String name) {
 		
 		this.id = id;
 		this.name = name;
-		this.products = products;
+		
 	}
 
 	//Gettes & Settes
@@ -69,7 +73,7 @@ public class Category implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public List<Product> getProducts() {
+	public Set<Product> getProducts() {
 		return products;
 	}
 	//hashCode e equals

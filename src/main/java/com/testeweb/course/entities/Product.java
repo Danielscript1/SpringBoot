@@ -1,9 +1,10 @@
 package com.testeweb.course.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,8 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-
-import org.springframework.boot.autoconfigure.web.ResourceProperties.Strategy;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -45,19 +44,19 @@ public class Product implements Serializable{
 	// Associations (instantiate collections)
 	@JsonIgnore
 	@ManyToMany(mappedBy = "products")
-	List<Category> category = new ArrayList<>();
+	Set<Category> category = new HashSet<>();
 	//Constructors
 	public Product() {
 		
 	}
-	public Product(Long id, String name, String description, Double price, String imgUrl, List<Category> category) {
+	public Product(Long id, String name, String description, Double price, String imgUrl) {
 		
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.price = price;
 		this.imgUrl = imgUrl;
-		this.category = category;
+		
 	}
 	
 	// Getters & Setters (collections: only get)
@@ -91,7 +90,7 @@ public class Product implements Serializable{
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
 	}
-	public List<Category> getCategory() {
+	public Set<Category> getCategory() {
 		return category;
 	}
 	
