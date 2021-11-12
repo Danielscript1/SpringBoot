@@ -44,8 +44,7 @@ public class Category implements Serializable {
 	
 	//associacao
 	@JsonIgnore
-	@ManyToMany
-	@JoinColumn(name="product_id")
+	@ManyToMany(mappedBy = "category")
 	private Set<Product> products =  new HashSet<>();
 	//criando uma lista do tipo set que não aceitar repeticoes ->product "associação muito pra muitos"
 	//constructor

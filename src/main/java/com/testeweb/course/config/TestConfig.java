@@ -49,6 +49,14 @@ public class TestConfig implements CommandLineRunner {
 		Product p4 = new Product(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, ""); 
 		Product p5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, ""); 
 		
+		//associação dos produtos com a categoria
+		p1.getCategory().add(cat2);
+		p2.getCategory().add(cat1);
+		p2.getCategory().add(cat3);
+		p3.getCategory().add(cat3);
+		p4.getCategory().add(cat3);
+		p5.getCategory().add(cat2);
+		
 		
 		//users
 		User u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
