@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Profile;
 
 import com.testeweb.course.entities.Order;
 import com.testeweb.course.entities.User;
+import com.testeweb.course.entities.enums.OrderStatus;
 import com.testeweb.course.repositories.OrderRepository;
 import com.testeweb.course.repositories.UserRepository;
 
@@ -15,7 +16,10 @@ import java.time.Instant;
 import java.util.Arrays;
 @Configuration
 @Profile("test")
-public class TestConfig implements CommandLineRunner { //essa implemetação executar os metodos quando iniciada
+public class TestConfig implements CommandLineRunner {
+
+//essa implemetação executar os metodos quando iniciada
+	
 		
 	//testando injeção depedencia
 	@Autowired
@@ -29,9 +33,9 @@ public class TestConfig implements CommandLineRunner { //essa implemetação exe
 		User u2 = new User(null, "Alex Green", "alex@gmail.com", "977777777", "123456"); 
 		//---- salvando arquivos e associano
 		
-		Order o1 = new Order(null, Instant.parse("2019-06-20T19:53:07Z"), u1);
-		Order o2 = new Order(null, Instant.parse("2019-07-21T03:42:10Z"), u2);
-		Order o3 = new Order(null, Instant.parse("2019-07-22T15:21:22Z"), u1);
+		Order o1 = new Order(null, Instant.parse("2019-06-20T19:53:07Z"),OrderStatus.WAITING_PAYMENT, u1);
+		Order o2 = new Order(null, Instant.parse("2019-07-21T03:42:10Z"),OrderStatus.SHIPPED ,u2);
+		Order o3 = new Order(null, Instant.parse("2019-07-22T15:21:22Z"),OrderStatus.DELIVERED ,u1);
 		//salvando dados User
 		userRepository.saveAll(Arrays.asList(u1,u2));
 		//salvando dados order

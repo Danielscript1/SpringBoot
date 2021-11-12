@@ -37,7 +37,7 @@ public class Order implements Serializable {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'",timezone = "GMT")
 	private Instant moment;
 	//Association Enums
-	private OrderStatus orderStatus;
+	private Integer orderStatus;
 	//Association 
 	//muitos para um
 	@ManyToOne
@@ -58,10 +58,10 @@ public class Order implements Serializable {
 		
 		this.id = id;
 		this.moment = moment;
-		this.orderStatus = orderStatus;
+		setOrderStatus(orderStatus);
 		this.client = client;
 	}
-public Order(Long id, Instant moment, User client) {
+	public Order(Long id, Instant moment, User client) {
 		
 		this.id = id;
 		this.moment = moment;
@@ -90,9 +90,7 @@ public Order(Long id, Instant moment, User client) {
 	}
 
 
-	public OrderStatus getOrderStatus() {
-		return orderStatus;
-	}
+	
 	
 	public User getClient() {
 		return client;
@@ -102,10 +100,17 @@ public Order(Long id, Instant moment, User client) {
 	public void setClientr(User client) {
 		this.client = client;
 	}
-
+	
+	public OrderStatus getOrderStatus() {
+		return OrderStatus.valueOf(orderStatus);
+	}
 
 	public void setOrderStatus(OrderStatus orderStatus) {
-		this.orderStatus = orderStatus;
+		if(orderStatus!=null) {
+		this.orderStatus = orderStatus.getCode();
+		}else {
+		throw new IllegalArgumentException("Ops! valor invalido, :( ");
+		}
 	}
 	
 	//Hashcode e equals
