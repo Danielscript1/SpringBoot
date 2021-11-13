@@ -2,7 +2,9 @@ package com.testeweb.course.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,12 +12,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.ManyToAny;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
 import com.testeweb.course.entities.enums.OrderStatus;
 @Entity
 @Table(name="tb_order")
@@ -43,6 +43,19 @@ public class Order implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="client_id")
 	private User client;
+	/*
+	 * Checklist: 
+	  OrderItemPK ok
+	  OrderItem ok
+	  Order one-to-many association ok exemplo -> order contem varios product 
+	//product esta associado ordemItem que por usa vez retorna orderItemPk
+	 * fazendo o mapeamento para retornar o item associado
+	  Seed 
+	 * 
+	 * */
+	//associação com minha classe OrdemItem 
+	@OneToMany(mappedBy = "id.order")
+	private Set<OrderItem> items = new HashSet<>();
 	
 	
 	
@@ -108,7 +121,15 @@ public class Order implements Serializable {
 		}
 	}
 	
+	public Set<OrderItem> getItems() {
+		return items;
+	}
+	
 	//Hashcode e equals
+
+
+
+
 
 	@Override
 	public int hashCode() {

@@ -1,6 +1,9 @@
 package com.testeweb.course.config;
 
 
+import java.time.Instant;
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -8,16 +11,15 @@ import org.springframework.context.annotation.Profile;
 
 import com.testeweb.course.entities.Category;
 import com.testeweb.course.entities.Order;
+import com.testeweb.course.entities.OrderItem;
 import com.testeweb.course.entities.Product;
 import com.testeweb.course.entities.User;
 import com.testeweb.course.entities.enums.OrderStatus;
+import com.testeweb.course.repositories.CategoryRepository;
+import com.testeweb.course.repositories.OrderItemRepository;
 import com.testeweb.course.repositories.OrderRepository;
 import com.testeweb.course.repositories.ProductRepository;
 import com.testeweb.course.repositories.UserRepository;
-import com.testeweb.course.repositories.CategoryRepository;
-
-import java.time.Instant;
-import java.util.Arrays;
 @Configuration
 @Profile("test")
 public class TestConfig implements CommandLineRunner {
@@ -34,6 +36,8 @@ public class TestConfig implements CommandLineRunner {
 	private CategoryRepository categoryRepository;
 	@Autowired
 	private  ProductRepository productRepository;
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -74,6 +78,15 @@ public class TestConfig implements CommandLineRunner {
 		categoryRepository.saveAll(Arrays.asList(cat1,cat2,cat3));
 		//salvando produtos
 		productRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
+		//colocando os objectos depois de salvar os pedidos ->as orders que foram solicitados
+		OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice()); 
+		OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice()); 
+		OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice()); 
+		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice()); 
+		orderItemRepository.saveAll(Arrays.asList(oi1,oi2,oi3,oi4));
+		//salavndo as ordens
+		
+		
 		
 		
 	}

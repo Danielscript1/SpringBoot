@@ -7,6 +7,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.testeweb.course.entities.pk.OrderItemPK;
 @Entity
 @Table(name="tb_order_item")
@@ -24,10 +25,10 @@ public class OrderItem implements Serializable{
 	  Seed 
 	 * 
 	 * */
-	//  Order one-to-many association ok 
+	
 	//id composto
 	@EmbeddedId
-	private OrderItemPK id;
+	private OrderItemPK id = new OrderItemPK() ;
 	//atributos
 	private Integer quantity;
 	private Double price;
@@ -44,7 +45,7 @@ public class OrderItem implements Serializable{
 		this.price = price;
 	}
 	//GettesSettes
-	
+	@JsonIgnore
 	public Order getOrder() {
 		return id.getOrder();
 	}
