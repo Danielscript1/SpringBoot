@@ -141,18 +141,23 @@ public class Order implements Serializable {
 	public void setPayment(Payment payment) {
 		this.payment = payment;
 	}
-
+	//metodos 
+	//total de todos os pedidos
+	public Double getTotal() {
+		double total = 0;
+		for(OrderItem t: items) {
+			total +=t.getSubTotal();
+		}
+		
+		return total;
+		
+		
+	}
 
 	
 	
-	//Hashcode e equals
 
-
-
-
-
-
-
+	//HASHCODE
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -172,7 +177,7 @@ public class Order implements Serializable {
 	}
 	
 	
-	//metodos
+	
 	
 	
 	
