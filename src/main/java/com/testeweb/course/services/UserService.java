@@ -53,7 +53,7 @@ public class UserService {
 		UpdateData(entity,obj);//chama a função que atualizar os dados
 		return repository.save(entity);
 		}catch(EntityNotFoundException e) {
-			throw new EntityNotFoundException(e.getMessage());
+			throw new ResourceNotFoundException(id);
 		}
 		
 	}
