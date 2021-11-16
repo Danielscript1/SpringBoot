@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.testeweb.course.entities.User;
 import com.testeweb.course.repositories.UserRepository;
 import com.testeweb.course.services.exceptions.DatabaseException;
+import com.testeweb.course.services.exceptions.EntityNotFoundException;
 import com.testeweb.course.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -47,9 +48,14 @@ public class UserService {
 	
 	//update user
 	public  User update(Long id, User obj) {
+		try {
 		User entity = repository.getOne(id);//ele deixar o objto monitorado para em seguinda eu ir no banco de dados
 		UpdateData(entity,obj);//chama a função que atualizar os dados
 		return repository.save(entity);
+		}catch(EntityNotFoundException e) {
+			throw new EntityNotFoundException(e.getMessage());
+		}
+		
 	}
 	//função ataulizar chamada no metodo update
 	private void UpdateData(User entity, User obj) {
