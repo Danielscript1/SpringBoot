@@ -38,4 +38,18 @@ public class UserService {
 		
 	}
 	
+	//update user
+	public  User update(Long id, User obj) {
+		User entity = repository.getOne(id);//ele deixar o objto monitorado para em seguinda eu ir no banco de dados
+		UpdateData(entity,obj);//chama a função que atualizar os dados
+		return repository.save(entity);
+	}
+	//função ataulizar chamada no metodo update
+	private void UpdateData(User entity, User obj) {
+		entity.setName(obj.getName());
+		entity.setEmail(obj.getEmail());
+		entity.setPhone(obj.getPhone());
+		
+	}
+	
 }
